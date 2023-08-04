@@ -81,11 +81,20 @@ export const getMockScalar = ({
   }
 
   switch (item.type) {
-    case 'number':
+    case 'number': {
+      return {
+        value: getNullable(
+          `faker.number.float({min: ${item.minimum}, max: ${item.maximum}})`,
+          item.nullable,
+        ),
+        imports: [],
+        name: item.name,
+      };
+    }
     case 'integer': {
       return {
         value: getNullable(
-          `faker.datatype.number({min: ${item.minimum}, max: ${item.maximum}})`,
+          `faker.number.integer({min: ${item.minimum}, max: ${item.maximum}})`,
           item.nullable,
         ),
         imports: [],
